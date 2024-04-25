@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_08_183328) do
     t.string "name"
     t.string "description"
     t.decimal "price", precision: 10, scale: 2
+    t.string "photo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
