@@ -8,7 +8,7 @@ class OrderDetail < ApplicationRecord
   validates :order, presence: true
   validates :total_amount, numericality: { greater_than_or_equal_to: 0.0 }
 
-  after_create :update_order_status
+  after_create_commit :update_order_status
 
   def total_amount
     quantity * unitprice
@@ -17,6 +17,6 @@ class OrderDetail < ApplicationRecord
   private
 
   def update_order_status
-    self.order.update(:orderstatus, "Completed")
+    order.check_order_status
   end
 end

@@ -6,11 +6,9 @@ class Order < ApplicationRecord
   validates :orderstatus, presence: true
   validates :user, presence: true
 
-  after_create :set_default_orderstatus
+  public
 
-  private
-
-  def set_default_orderstatus
-    self.orderstatus = 'pending'
+  def check_order_status
+    update_column(:orderstatus, 'completed')
   end
 end

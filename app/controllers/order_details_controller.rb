@@ -1,24 +1,19 @@
 class OrderDetailsController < ApplicationController
-    def create
-      @order = Order.find(params[:order_id])
-      @product = Product.find(params[:product_id])
-  
-      @order_detail = @order.order_details.new(order_detail_params)
+  def create
+    @order = Order.find_by(id: params[:order_id])
+    order_detail_params.each do |order_detail_param|
+      @product = Product.find_by(id: order_detail_param[:product_id])
+      @order_detail = @order.order_details.build(order_detail_param)
       @order_detail.product = @product
-  
-      if @order_detail.save
-        render json: @order_detail, status: :created
-        @order.orderstatus = "completed"
-        @order.save
-      else
-        render json: @order_detail.errors, status: :unprocessable_entity
-      end
-    end
-  
-    private
-  
-    def order_detail_params
-      params.require(:order_detail).permit(:quantity, :unitprice)
+      @order_detail.create
     end
   end
-  
+
+  private
+
+  def order_detail_params
+    params.require(:order_detail).map do |param|
+      param.permit(:quantity, :unitprice, :product_id)
+    end
+  end
+end
