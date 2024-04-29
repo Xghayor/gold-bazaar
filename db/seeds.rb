@@ -10,7 +10,7 @@ product2 = Product.create!(name: 'Product B', description: 'This is Product B', 
 product3 = Product.create!(name: 'Product C', description: 'This is Product C', price: 39.99, photo: 'https://example.com/photo3.jpg')
 
 
-# # Create orders
+# # # Create orders
 order1 = Order.create!(shippingaddress: '123 Main St', user_id: user1.id)
 order2 = Order.create!(shippingaddress: '456 Elm St',  user_id: user2.id)
 

@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+  skip_before_action :authenticate_with_api_key
+  skip_before_action :authorize_user
+  
     def index
       @products = Product.all
       render json: @products

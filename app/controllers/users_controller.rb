@@ -1,12 +1,10 @@
 class UsersController < ApplicationController
-    def index
-      @users = User.all
-      render json: @users
-    end
+  skip_before_action :authenticate_with_api_key, only: [:create]
+  skip_before_action :authorize_user, only: [:create]
+
   
     def show
-      @user = User.find(params[:id])
-      render json: @user
+     render json: @current_user
     end
   
     def create
